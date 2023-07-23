@@ -11,6 +11,7 @@ What features we want to integrate in our website.
 2. User can search for videos and playlist.
 3. User can add playlist and subscribe channel.
 4. User can do all stuffs such as like/dislike, comment etc.
+5. Manually added playlists will be stored in a database for each user. (Use firebase)
    
 How we are going to filter videos.
 1. We will just show the videos of subscribed channels and added playlists ([ref](https://developers.google.com/youtube/v3/docs/subscriptions/list)).
