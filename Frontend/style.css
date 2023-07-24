@@ -2,6 +2,7 @@ body{
     box-sizing: border-box;
     margin: 0;
     padding: 0;
+    font-family: 'Roboto', sans-serif;
 }
 
 ::-webkit-scrollbar{
@@ -23,10 +24,15 @@ body{
     background-color:rgb(138, 135, 135);
 }
 
+/* --------------------------------------------------------------------------------------------------------- */
+
+/* Header CSS start */
+
 .headerContainer{
     background-color: #0f0f0f;
     color:white;
     display: flex;
+    z-index:10;
 
     position: fixed;
     width: 100%;
@@ -163,3 +169,150 @@ body{
     cursor: pointer;
 }
 
+/* Header CSS end */
+
+/* --------------------------------------------------------------------------------------------------------- */
+
+/* Sidebar CSS start */
+
+.sidebar__container{
+    padding-top: 4em;
+    position: fixed;
+    min-width:15%;
+    height: 92vh;
+    overflow-y:scroll;
+}
+
+.sidebar__container::-webkit-scrollbar-thumb{
+    background-color:#0f0f0f;
+}
+
+.sidebar__container:hover::-webkit-scrollbar-thumb{
+    background-color: rgb(192, 187, 187);;
+}
+
+.sidebar__general_container{
+    display: grid;
+
+    padding: 0.2em 0em 1em 0em;
+    
+    background-color:#0f0f0f;
+    min-height: 26vh;
+
+    border-bottom: 1px solid rgb(192, 187, 187);
+}
+
+.sidebar__home, .sidebar__history, .sidebar__library, .sidebar__watchlater{
+    display: flex;
+    padding-left:1em;
+    padding-right:1em;
+    align-items: center;
+    color: white;
+    border-radius: 15px;
+    transition: all 0.17s;
+}
+
+.sidebar__home:hover, .sidebar__history:hover, .sidebar__library:hover, .sidebar__watchlater:hover{
+    background-color: hsl(0, 0%, 18.82%);
+    cursor: pointer;
+}
+
+.sidebar__home_icon, .sidebar__history_icon, .sidebar__library_icon, .sidebar__watchlater_icon{
+    padding-left: 1.2em;
+    color:white;
+    font-size:1.2em;
+}
+
+.sidebar__home_text, .sidebar__history_text, .sidebar__library_text, .sidebar__watchlater_text{
+    display: flex;
+    align-items: center;
+    padding-left: 1em;
+    font-size: 0.9em;
+}
+
+.sidebar__subInfo_container{
+    background-color:#0f0f0f;
+    display: grid;
+    min-height: 50vh;
+    color:white;
+    padding: 0em 0em 1em 0em;
+    border-bottom: 1px solid rgb(192, 187, 187);
+}
+
+.sidebar__sub_title{
+    display: flex;
+    align-items: center;
+    padding-left: 2.2em;
+    padding-top: 1.3em;
+    padding-bottom: 0.8em;
+}
+
+.sidebar__subInfo_card{
+    display: flex;
+    align-items: center;
+    border-radius: 15px;
+    padding-top:0.7em;
+    padding-bottom: 0.7em;
+}
+
+.sidebar__subInfo_card:hover{
+    background-color: hsl(0, 0%, 18.82%);
+    cursor: pointer;
+}
+
+
+.sidebar__subInfo_photo_icon{
+    padding-left: 1.2em;
+    color:white;
+    font-size: 1.7em;
+}
+
+.sidebar__subInfo_channelName{
+    /* display: flex; */
+    align-items: center;
+    padding-left: 1em;
+    font-size: 0.9em;
+
+    width:8em;
+    /*ellipsis doesnt work if display is set to flex*/
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+}
+
+.sidebar__sub_showMore{
+    display: flex;
+    align-items: center;
+    border-radius: 15px;
+    padding: 0.7em 0 0.7em 0;
+}
+
+.sidebar__sub_showMore:hover{
+    cursor: pointer;
+    background-color: hsl(0, 0%, 18.82%);
+}
+
+.sidebar__sub_showMore_icon{
+    color: white;
+    padding-left: 1.55em;
+    font-size: 1.4em;
+}
+
+.sidebar__sub_showMore_text{
+    padding-left: 1em;
+    font-size: 0.9em;
+}
+
+.sidebar__footer_container{
+    display: flex;
+    justify-content: left;
+    align-items: center;
+    padding: 1em 1.5em 1em 2.3em;
+    font-size: 0.8em;
+    color: hsl(0, 7%, 76%);
+    background-color: #0f0f0f;
+}
+
+/* Sidebar CSS end */
+
+/* --------------------------------------------------------------------------------------------------------- */
