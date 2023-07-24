@@ -51,10 +51,12 @@ body{
 
 .header__searchbar_container{
     display: flex;
+    width:38em;
 }
 
 .header__searchbar{
-    width:38em;
+    /* width:38em; */
+    flex:1;
     color:white;
     padding-left: 1.2em;
     outline: none;
