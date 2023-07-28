@@ -6,7 +6,7 @@ OAuth.addEventListener('click', function() {
     form.setAttribute("action", oauth2ep);
     let params = {
         "client_id" : "182985029199-aq3p34sjqeteo762eahvlllbpffjegns.apps.googleusercontent.com",
-        "redirect_uri" : "http://127.0.0.1:5500/Youtube_Filter/Frontend/index.html",
+        "redirect_uri" : "http://127.0.0.1:5500/Frontend/index.html",
         "response_type" : "token",
         "scope" : "https://www.googleapis.com/auth/userinfo.profile https://www.googleapis.com/auth/youtube.readonly",
         "include_granted_scopes" : "true",
@@ -42,7 +42,7 @@ if(Object.keys(params).length > 0)
 }
 
 //hiding the access token
-window.history.pushState({}, document.title,"/Youtube_Filter/Frontend/" + "index.html");
+window.history.pushState({}, document.title,"/Frontend/" + "index.html");
 
 //storing data
 let info = JSON.parse(localStorage.getItem("authInfo"));
