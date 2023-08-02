@@ -1,3 +1,4 @@
+//log in using oauth2
 const OAuth = document.querySelector('.header__account_photo');
 let signed = 0 ;
 OAuth.addEventListener('click', function() {
@@ -36,10 +37,7 @@ OAuth.addEventListener('click', function() {
   }
 });
 
-
-// var url = window.location;
-// var access_token = new URLSearchParams(window.location.hash).get('access_token');
-
+//decoding url for accesstoken
 let params = {};
 let regex = /([^&=]+)=([^&]*)/g, m;
 let authInfo;
@@ -55,7 +53,7 @@ if(Object.keys(params).length > 0)
 //hiding the access token
 window.history.pushState({}, document.title,"/Frontend/" + "index.html");
 
-//storing data
+//storing user data
 let info = JSON.parse(localStorage.getItem("authInfo"));
 console.log(info);
 
@@ -71,7 +69,8 @@ function logout()
     window.location.href = "http://127.0.0.1:5500/Youtube_Filter/Frontend/index.html";
   })
 }
-//calling API
+
+//fetching user details
 fetch("https://www.googleapis.com/oauth2/v3/userinfo",{
   headers:{
     "Authorization":`Bearer ${info['access_token']}`
@@ -83,109 +82,117 @@ fetch("https://www.googleapis.com/oauth2/v3/userinfo",{
   document.getElementById('image').setAttribute('src', info.picture);
 })
 
+// api key 
+let ApiKey = "&key=AIzaSyCN1SYd55iUhGcU5s6eR2wgxTVCcjsd6hE";
+
+//Fetching the subscribed channels list.
 let channelContainer = document.getElementById("channelContainer");
 console.log(channelContainer);
 let OrgchannelElement = document.getElementsByClassName("sidebar__subInfo_card")[0];
 console.log(OrgchannelElement);
+let subscriptionsApi = "https://youtube.googleapis.com/youtube/v3/subscriptions?part=snippet%2CcontentDetails&mine=true";
+let subscriptionsUrl = subscriptionsApi + ApiKey;
+let channelCount = 0;
 
-let ApiKey = "&key=AIzaSyCN1SYd55iUhGcU5s6eR2wgxTVCcjsd6hE";
-let chidApi = "https://youtube.googleapis.com/youtube/v3/subscriptions?part=snippet%2CcontentDetails&mine=true";
-let ApiUrl = chidApi + "&pageToken=CAUQAA" + ApiKey;
-
-let nextPageToken = "";
-let res = 0;
-
-async function getall(){
+async function getSubscription(){
+  channelCount = 0;
   for(let k = 0; k<100; k++)
   {
-    let response = await fetch(ApiUrl,{
+    let response = await fetch(subscriptionsUrl,{
       headers:{
         "Authorization":`Bearer ${info['access_token']}`,
         "Accept": 'application/json'
       }
     })
     let returnedData = await response.json();
-    getthedata(returnedData);
-    console.log(res);
-    if(res + returnedData.pageInfo.resultsPerPage == returnedData.pageInfo.totalResults)
+    getChannel(returnedData);
+    if(channelCount + returnedData.pageInfo.resultsPerPage == returnedData.pageInfo.totalResults)
       k = 101;
   }
 } 
-getall().catch(error => {
-  console.log("error");
+getSubscription().catch(error => {
+  console.log("subscription fetch error");
 });
 
 OrgchannelElement.remove();
 
-function getthedata(returnedData)
+function getChannel(returnedData)
 {
-    if(returnedData.length == 0)
-      isEmpty = true;
-    for(const element of returnedData.items)
-    {
-      res++;
-      let text = element.snippet.title;
-      const textNode = document.createTextNode(text);
-      const urr = element.snippet.thumbnails.medium.url;
-      let channelElement = OrgchannelElement.cloneNode(true);
-      let elementOfChannelElement = channelElement.childNodes;
-      //console.log(elementOfChannelElement);
-      let channelImg = elementOfChannelElement[1].childNodes[1];
-      let channelName= elementOfChannelElement[3];
-      channelImg.setAttribute('src', urr);
-      channelName.appendChild(textNode);
-      //console.log(textNode);
-      channelContainer.appendChild(channelElement);
-      //console.log(channelContainer);
-      channelElement.addEventListener('click', function(){
-      let newLink = "https://www.youtube.com/channel/" + element.snippet.resourceId.channelId;
-      let emb = document.getElementById('embedded');
-      emb.setAttribute('src', newLink);
-      })
-    }
-    nextPageToken = "&pageToken=" + returnedData.nextPageToken;
-    ApiUrl = chidApi + nextPageToken + ApiKey;
+  for(const element of returnedData.items)
+  {
+    channelCount++;
+    let text = element.snippet.title;
+    const textNode = document.createTextNode(text);
+    const urr = element.snippet.thumbnails.medium.url;
+    let channelElement = OrgchannelElement.cloneNode(true);
+    let elementOfChannelElement = channelElement.childNodes;
+    let channelImg = elementOfChannelElement[1].childNodes[1];
+    let channelName= elementOfChannelElement[3];
+    channelImg.setAttribute('src', urr);
+    channelName.appendChild(textNode);
+    channelContainer.appendChild(channelElement);
+    channelElement.addEventListener('click', function(){
+    let newLink = "https://www.youtube.com/channel/" + element.snippet.resourceId.channelId;
+    let emb = document.getElementById('embedded');
+    emb.setAttribute('src', newLink);
+    })
+  }
+  let nextPageToken = "&pageToken=" + returnedData.nextPageToken;
+  subscriptionsUrl = subscriptionsApi + nextPageToken + ApiKey;
 }
 
+// fetching the user playlists
+let playlistContainer = document.getElementById("playlistContainer");
+console.log(playlistContainer);
+let orgPlaylistElement = document.getElementById("playlistElement");
+let playlistApi = "https://youtube.googleapis.com/youtube/v3/playlists?part=snippet%2CcontentDetails&maxResults=25&mine=true";
+let playListUrl = playlistApi + ApiKey;
+let playlistCount = 0;
+console.log(orgPlaylistElement);
+async function getPlaylist(){
+  playlistCount = 0;
+  for(let k = 0; k<1; k++)
+  {
+    let response = await fetch(playListUrl,{
+      headers:{
+        "Authorization":`Bearer ${info['access_token']}`,
+        "Accept": 'application/json'
+      }
+    })
+    let returnedData = await response.json();
+    getPlaylistData(returnedData);
+  }
+} 
+getPlaylist().catch(error => {
+  console.log("playlist fetch error")
+});
 
-// function getData(ApiUrl){
-//   fetch(ApiUrl,{
-//     headers:{
-//       "Authorization":`Bearer ${info['access_token']}`,
-//       "Accept": 'application/json'
-//     }
-//   })
-//   .then((data) => {
-//     return data.json();
-//   }).then((returnedData) => {
-//     console.log(returnedData);
-//     console.log(ApiUrl);
-//     if(returnedData.length == 0)
-//       isEmpty = true;
-//     for(const element of returnedData.items)
-//     {
-//       let text = element.snippet.title;
-//       const textNode = document.createTextNode(text);
-//       const urr = element.snippet.thumbnails.medium.url;
-//       let channelElement = OrgchannelElement.cloneNode(true);
-//       let elementOfChannelElement = channelElement.childNodes;
-//       //console.log(elementOfChannelElement);
-//       let channelImg = elementOfChannelElement[1].childNodes[1];
-//       let channelName= elementOfChannelElement[3];
-//       channelImg.setAttribute('src', urr);
-//       channelName.appendChild(textNode);
-//       //console.log(textNode);
-//       channelContainer.appendChild(channelElement);
-//       console.log(channelContainer);
-//       channelElement.addEventListener('click', function(){
-//       let newLink = "https://www.youtube.com/channel/" + element.snippet.resourceId.channelId;
-//       window.location.href = newLink;
-//       })
-//     }
-//     nextPageToken = "&pageToken=" + returnedData.nextPageToken;
-//     ApiUrl = chidApi + nextPageToken + ApiKey;
-//   })
-// }
+function getPlaylistData(returnedData)
+{
+  console.log(returnedData);
+  for(const element of returnedData.items)
+  {
+    let playlistTitle = element.snippet.title;
+    let channelTitle = element.snippet.channelTitle;
+    let thumbnail = element.snippet.thumbnails.medium.url;
+    let videoCount = element.contentDetails.itemCount;
+    let playlistTitleNode = document.createTextNode(playlistTitle);
+    let channelTitleNode = document.createTextNode(channelTitle);
+    let videoCountNode = document.createTextNode(videoCount);
+    let playlistElement = orgPlaylistElement.cloneNode(true);
+    let titleDiv = playlistElement.childNodes[3].childNodes[1];
+    let channelDiv = playlistElement.childNodes[3].childNodes[3];
+    let imgDiv = playlistElement.childNodes[1].childNodes[1].childNodes[3];
+    let videoCountDiv = playlistElement.childNodes[1].childNodes[1].childNodes[1];
+    titleDiv.appendChild(playlistTitleNode);
+    channelDiv.appendChild(channelTitleNode);
+    imgDiv.setAttribute('src', thumbnail);
+    videoCountDiv.appendChild(videoCountNode);
+    playlistContainer.appendChild(playlistElement);
+    console.log(videoCountDiv);
+  }
+}
+orgPlaylistElement.remove();
 
 
 
