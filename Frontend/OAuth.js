@@ -1,12 +1,15 @@
 const OAuth = document.querySelector('.header__account_photo');
+let signed = 0 ;
 OAuth.addEventListener('click', function() {
+  if(signed === 0)
+  {
     let oauth2ep = "https://accounts.google.com/o/oauth2/v2/auth";
     let form = document.createElement("form");
     form.setAttribute("method", "GET");
     form.setAttribute("action", oauth2ep);
     let params = {
         "client_id" : "182985029199-aq3p34sjqeteo762eahvlllbpffjegns.apps.googleusercontent.com",
-        "redirect_uri" : "http://127.0.0.1:5500/Youtube_Filter/Frontend/index.html",
+        "redirect_uri" : "http://127.0.0.1:5500/Frontend/index.html",
         "response_type" : "token",
         "scope" : "https://www.googleapis.com/auth/userinfo.profile https://www.googleapis.com/auth/youtube.readonly",
         "include_granted_scopes" : "true",
@@ -24,7 +27,15 @@ OAuth.addEventListener('click', function() {
     form.submit();
     stats = 1;
     console.log('OAuth was clicked!');
+    signed = 1;
+  }
+  else
+  {
+    // logout();
+    // signed = 0;
+  }
 });
+
 
 // var url = window.location;
 // var access_token = new URLSearchParams(window.location.hash).get('access_token');
@@ -42,12 +53,24 @@ if(Object.keys(params).length > 0)
 }
 
 //hiding the access token
-window.history.pushState({}, document.title,"/Youtube_Filter/Frontend/" + "index.html");
+window.history.pushState({}, document.title,"/Frontend/" + "index.html");
 
 //storing data
 let info = JSON.parse(localStorage.getItem("authInfo"));
 console.log(info);
 
+function logout()
+{
+  fetch("https://oauth2.googleapis.com/revoke?token=" + info['access_token'], {
+    method:'POST',
+    headers:{
+      'Content-type':'application/x-www-form-urlencoded'
+    }
+  })
+  .then((data) => {
+    window.location.href = "http://127.0.0.1:5500/Youtube_Filter/Frontend/index.html";
+  })
+}
 //calling API
 fetch("https://www.googleapis.com/oauth2/v3/userinfo",{
   headers:{
@@ -116,7 +139,8 @@ function getthedata(returnedData)
       //console.log(channelContainer);
       channelElement.addEventListener('click', function(){
       let newLink = "https://www.youtube.com/channel/" + element.snippet.resourceId.channelId;
-      window.location.href = newLink;
+      let emb = document.getElementById('embedded');
+      emb.setAttribute('src', newLink);
       })
     }
     nextPageToken = "&pageToken=" + returnedData.nextPageToken;
