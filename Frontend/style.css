@@ -344,9 +344,10 @@ body{
 .right__current_playlist_container{
     display: grid;
     grid-template-rows: 1fr 4fr;
-    height: 100%;
+    height: 80%;
     box-sizing: border-box;
-    padding: 1em;   
+    padding: 0.5em 0em 1em 1em;   
+    padding-bottom: 0em;
 }
 
 .right__current_playlist_info{
@@ -473,7 +474,7 @@ body{
 
 
 .rightsidebar__other_playlist_container{
-    padding: 1em;
+    padding: 0.5em 0.5em 1em 1em;
 }
 
 .rightsidebar__other_playlist{
