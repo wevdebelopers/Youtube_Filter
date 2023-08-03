@@ -133,8 +133,7 @@ function getChannel(returnedData)
     channelContainer.appendChild(channelElement);
     channelElement.addEventListener('click', function(){
     let newLink = "https://www.youtube.com/channel/" + element.snippet.resourceId.channelId;
-    let emb = document.getElementById('embedded');
-    emb.setAttribute('src', newLink);
+    window.location.href = newLink;
     })
   }
   let nextPageToken = "&pageToken=" + returnedData.nextPageToken;
@@ -146,12 +145,22 @@ let playlistContainer = document.getElementById("playlistContainer");
 console.log(playlistContainer);
 let orgPlaylistElement = document.getElementById("playlistElement");
 let playlistApi = "https://youtube.googleapis.com/youtube/v3/playlists?part=snippet%2CcontentDetails&maxResults=25&mine=true";
+let playlistItemApi = "https://youtube.googleapis.com/youtube/v3/playlistItems?part=snippet%2CcontentDetails&maxResults=25";
 let playListUrl = playlistApi + ApiKey;
 let playlistCount = 0;
+let playlistItemCount = 0;
+let currentPlaylist = document.getElementById("currentPlaylist");
+let playlistVideoContainer = document.getElementById("playlistVideoContainer");
+let orgPlaylistVideoContainer = playlistVideoContainer.cloneNode(true);
+let OrgPlaylistVideoDiv = document.getElementById("playlistVideoDiv");
+console.log(OrgPlaylistVideoDiv);
+console.log(playlistVideoContainer);
+console.log(currentPlaylist);
 console.log(orgPlaylistElement);
+
 async function getPlaylist(){
   playlistCount = 0;
-  for(let k = 0; k<1; k++)
+  for(let k = 0; k<100; k++)
   {
     let response = await fetch(playListUrl,{
       headers:{
@@ -161,6 +170,8 @@ async function getPlaylist(){
     })
     let returnedData = await response.json();
     getPlaylistData(returnedData);
+    if(playlistCount + returnedData.pageInfo.resultsPerPage >= returnedData.pageInfo.totalResults)
+      k = 101;
   }
 } 
 getPlaylist().catch(error => {
@@ -172,6 +183,7 @@ function getPlaylistData(returnedData)
   console.log(returnedData);
   for(const element of returnedData.items)
   {
+    playlistCount++;
     let playlistTitle = element.snippet.title;
     let channelTitle = element.snippet.channelTitle;
     let thumbnail = element.snippet.thumbnails.medium.url;
@@ -189,10 +201,62 @@ function getPlaylistData(returnedData)
     imgDiv.setAttribute('src', thumbnail);
     videoCountDiv.appendChild(videoCountNode);
     playlistContainer.appendChild(playlistElement);
-    console.log(videoCountDiv);
+    playlistElement.addEventListener('click', function() {
+      let playListItemUrl = playlistItemApi + "&playlistId=" + element.id + ApiKey;
+      currentPlaylist.childNodes[1].textContent = playlistTitle;
+      currentPlaylist.childNodes[3].childNodes[1].textContent = channelTitle;
+      playlistVideoContainer.innerHTML = '';
+      getPlaylistItem(playListItemUrl).catch(error => {
+        console.log("playlist item fetch error");
+      })
+    })
   }
 }
 orgPlaylistElement.remove();
+
+async function getPlaylistItem(URL){
+  playlistItemCount = 0;
+  console.log(URL);
+  for(let k = 0; k<100; k++)
+  {
+    let response = await fetch(URL,{
+      headers:{
+        "Authorization":`Bearer ${info['access_token']}`,
+        "Accept": 'application/json'
+      }
+    })
+    let returnedData1 = await response.json();
+    getPlaylistItemData(returnedData1);
+    if(playlistCount + returnedData1.pageInfo.resultsPerPage >= returnedData1.pageInfo.totalResults)
+      k = 101;
+  }
+  OrgPlaylistVideoDiv.remove();
+}
+
+function getPlaylistItemData(returnedData1){
+  console.log(returnedData1);
+  for(const element of returnedData1.items)
+  {
+    playlistItemCount++;
+    let videoTitle = element.snippet.title;
+    let channelTitle = element.snippet.channelTitle;
+    let thumbnail = element.snippet.thumbnails.medium.url;
+    let videoId = element.contentDetails.videoId;
+    let playlistId = element.id;
+    let videoDiv = OrgPlaylistVideoDiv.cloneNode(true);
+    videoDiv.childNodes[5].childNodes[1].textContent = videoTitle;
+    videoDiv.childNodes[5].childNodes[3].textContent = channelTitle;
+    videoDiv.childNodes[1].textContent = playlistItemCount;
+    videoDiv.childNodes[3].childNodes[1].childNodes[1].setAttribute('src', thumbnail);
+    playlistVideoContainer.appendChild(videoDiv);
+    let videoUrl = "https://www.youtube.com/watch?v=" + videoId + "&list=" + playlistId;
+    videoDiv.addEventListener('click', function(){
+      window.location.href = videoUrl;
+    })
+  }
+}
+
+
 
 
 
