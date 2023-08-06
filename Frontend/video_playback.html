@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <title>Youtube Filtered</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!--HEADER HERE-->
+    <div class="headerContainer">
+        <div class="header__logo_container">
+            <img src="./Images/yt.png" class="header__logo">
+        </div>
+        <div class="header__searchbar_container">
+            <input type="text" class="header__searchbar" placeholder="Search"/>
+            <button class="header__searchbar_btn">
+                <i class="fa-solid fa-magnifying-glass header__search_icon"></i>
+            </button>
+        </div>
+        <div class="header__account_container">
+            <div class="header__account_notification">
+                <i class="fa-solid fa-bell header__account_notification_icon"></i>
+            </div>
+            <div class="header__account_photo">
+                <img src = "Images/profile.png" id = "image"/>
+            </div>
+        </div>
+    </div>
+    <!--HEADER HERE-->
+
+
+    <!--SIDEBAR HERE-->
+    <div class="sidebar__container">
+        <div class="sidebar__general_container">
+            <div class="sidebar__home">
+                <i class="fa-solid fa-house sidebar__home_icon"></i>
+                <div class="sidebar__home_text">Home</div>
+            </div>
+            <div class="sidebar__watchlater">
+                <i class="fa-solid fa-clock sidebar__watchlater_icon"></i>
+                <div class="sidebar__watchlater_text">Watch Later</div>
+            </div>
+            <div class="sidebar__history">
+                <i class="fa-solid fa-clock-rotate-left sidebar__history_icon"></i>
+                <div class="sidebar__history_text">History</div>
+            </div>
+            <div class="sidebar__library">
+                <i class="fa-solid fa-images sidebar__library_icon"></i>
+                <div class="sidebar__library_text">Library</div>
+            </div>
+        </div>
+        <div class="sidebar__subInfo_container" id = "channelContainer">
+            <div class="sidebar__sub_title">Subscriptions</div>
+            <div class="sidebar__subInfo_card">
+                <div class="sidebar__subInfo_photo_container">
+                    <img src = "Images/profile.png" style="width: 80%; height: 2.5em; padding-left: 10px;" id = "chi1" alt = "Images/profile.png">
+                </div>
+                <div class="sidebar__subInfo_channelName">
+                </div>
+            </div>
+        </div>
+        <div class="sidebar__footer_container">
+            &copy; 2023 Youtube Filtered
+        </div>
+    </div>
+
+    <!--RIGHT SIDEBAR HERE-->
+    <div class="rightSideBar__Container">
+        <div class="rightsidebar__current_playlist_container">
+            <div class="right__current_playlist_container">
+                <div class="right__current_playlist_info" id = "currentPlaylist">
+                    <div class="right__current_playlist_name">Title</div>
+                    <div class="right__current_channel_info">
+                        <div class="right__current_channel_name">Name</div>
+                        <div class="right__current_completed">1/50</div>
+                    </div>
+                </div>
+                <div class="right__current_videos" id = "playlistVideoContainer">
+                    <div class="right__video_preview_container" id = "playlistVideoDiv">
+                        <div class="right__video_number">1</div>
+                        <div class="right__video_thumbnail">
+                            <div class="right__video_thumbnail_container">
+                                <img class="right__video_thumbnail_preview" src="Images/thumbnail.jpg">
+                                <div class="right__time_container">00:00</div>
+                            </div>
+                        </div>
+                        <div class="right__video_info">
+                            <div class="right__video_title" style="font-size: small;">Title</div>
+                            <div class="right__video_owner">Channel Name</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="rightsidebar__other_playlist_container">
+            <div class="rightsidebar__other_playlist" >
+                <div class="rightsidebar__other_playlist_title">Other Playlists</div>
+                <div class="rightsidebar__other_playlist_preview" id = "playlistContainer">
+                    <div class="rightsidebar__other_playlist_box" id = "playlistElement">
+                        <div class="rightsidebar__playlist_image_container">
+                            <div class="rightsidebar__playlist_image_box">
+                                <div class="rightsidebar__playlist_totalnumber">
+                                    <i class="fa-solid fa-list playlist_icon_others"></i>
+            
+                                </div>
+                                <img class="rightsidebar__playlist_image" src="Images/thumbnail.jpg">
+                            </div>
+                        </div>
+                        <div class="rightsidebar__playlist_info_container">
+                            <div class="rightsidebar__playlist_info_title"></div>
+                            <div class="rightsidebar__playlist_info_owner"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--RIGHT SIDEBAR HERE-->
+
+
+    <!--VIDEO playback HERE-->
+
+    <div class="main__video_playback_container">
+        <div class="main__video_playback">
+            <img class="main__video" src="Images/thumbnail.jpg">
+        </div>
+    </div>
+
+    <!--VIDEO playback HERE-->
+</body>
+    <script src = "OAuth.js"></script>
+    <script src="styleScript.js"></script>
+</html>
