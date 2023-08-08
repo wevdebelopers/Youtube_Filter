@@ -581,9 +581,8 @@ body{
 :root{
     --leftSpacing: 4%;
     --max-width-main:54%;
-    --height-main:91vh;
-
-    --video-playback-height:60%;
+    --height-main: 10em;
+    --video-playback-height:80%;
 }
 
 .main__video_playback_container{
@@ -602,9 +601,10 @@ body{
 }
 
 .main__video{
+    position: relative;
     height: 100%;
     width: 100%;
-    object-fit: cover;
+    object-fit: fill;
     border-radius: 10px;
 }
 

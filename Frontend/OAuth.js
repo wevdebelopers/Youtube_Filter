@@ -1,6 +1,7 @@
 //log in using oauth2
 const OAuth = document.querySelector('.header__account_photo');
 let signed = 0 ;
+let currentLocation = window.location.href;
 OAuth.addEventListener('click', function() {
   if(signed === 0)
   {
@@ -51,8 +52,8 @@ if(Object.keys(params).length > 0)
 }
 
 //hiding the access token
-// window.history.pushState({}, document.title,"/Frontend/" + "index.html");
-window.history.pushState({}, document.title,"/Frontend/" + "video_playback.html");
+window.history.pushState({}, document.title,"/Frontend/" + "index.html");
+
 
 //storing user data
 let info = JSON.parse(localStorage.getItem("authInfo"));
@@ -154,6 +155,7 @@ let currentPlaylist = document.getElementById("currentPlaylist");
 let playlistVideoContainer = document.getElementById("playlistVideoContainer");
 let orgPlaylistVideoContainer = playlistVideoContainer.cloneNode(true);
 let OrgPlaylistVideoDiv = document.getElementById("playlistVideoDiv");
+let smallVideoPlayback = document.getElementById("smallVideoPlayback");
 console.log(OrgPlaylistVideoDiv);
 console.log(playlistVideoContainer);
 console.log(currentPlaylist);
@@ -250,9 +252,15 @@ function getPlaylistItemData(returnedData1){
     videoDiv.childNodes[1].textContent = playlistItemCount;
     videoDiv.childNodes[3].childNodes[1].childNodes[1].setAttribute('src', thumbnail);
     playlistVideoContainer.appendChild(videoDiv);
-    let videoUrl = "https://www.youtube.com/watch?v=" + videoId + "&list=" + playlistId;
+    let videoUrl = "https://www.youtube.com/embed/" + videoId;
+    //"&list=" + playlistId
+    //videoUrl = "http://127.0.0.1:5500/Frontend/video_playback.html";
     videoDiv.addEventListener('click', function(){
-      window.location.href = videoUrl;
+      //window.location.href = videoUrl;
+      smallVideoPlayback.style.display = 'block';
+      //let hqThumbnail = element.snippet.thumbnails.medium.url;
+      //smallVideoPlayback.childNodes[1].childNodes[1].setAttribute('src', hqThumbnail);
+      smallVideoPlayback.childNodes[1].childNodes[1].setAttribute('src', videoUrl);
     })
   }
 }

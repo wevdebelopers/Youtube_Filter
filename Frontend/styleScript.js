@@ -52,11 +52,12 @@ window.addEventListener('DOMContentLoaded', setMainWindow_height);
 var setVideo_height = () => {
     const container = document.querySelector('.main__video_playback');
     const root4 = document.querySelector(':root');
-
+    console.log("wd");
+    console.log(container.clientWidth);
+    console.log(container.clientHeight);
     //-20px -> considering padding too
-    const playback_Height = ((container.clientWidth-20)*9)/16;
-
-    root4.style.setProperty('--video-playback-height', `${playback_Height}px`);
+    //const playback_Height = ((container.clientWidth)*9)/16;
+    //root4.style.setProperty('--video-playback-height', `${playback_Height}px`);
 }
 
 window.addEventListener('resize', setVideo_height);
