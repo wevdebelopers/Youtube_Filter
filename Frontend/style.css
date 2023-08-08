@@ -3,6 +3,7 @@ body{
     margin: 0;
     padding: 0;
     font-family: 'Roboto', sans-serif;
+    background-color: #0f0f0f;
 }
 
 ::-webkit-scrollbar{
@@ -331,8 +332,9 @@ body{
     height: 100vh;
     min-width: 27%;
     position: fixed;
-    right:0;
+    right:0em;
     top:4em;
+    z-index: 5;
 
     display: grid;
     grid-template-rows: 1.2fr 1fr;
@@ -346,7 +348,7 @@ body{
     grid-template-rows: 1fr 4fr;
     height: 80%;
     box-sizing: border-box;
-    padding: 0.5em 0em 1em 1em;   
+    padding: 0.5em 1em 1em 1em;   
     padding-bottom: 0em;
 }
 
@@ -474,7 +476,7 @@ body{
 
 
 .rightsidebar__other_playlist_container{
-    padding: 0.5em 0.5em 1em 1em;
+    padding: 0.5em 1em 1em 1em;
 }
 
 .rightsidebar__other_playlist{
@@ -571,5 +573,41 @@ body{
 }
 
 /* Right Sidebar CSS end*/
+
+/* --------------------------------------------------------------------------------------------------------- */
+
+/* Video Playback CSS start */
+
+:root{
+    --leftSpacing: 4%;
+    --max-width-main:54%;
+    --height-main:91vh;
+
+    --video-playback-height:60%;
+}
+
+.main__video_playback_container{
+    /* background-color: blueviolet; */
+    width: var(--max-width-main);
+    height: var(--height-main);
+    top:4.15em;
+    position: relative;
+    left: var(--leftSpacing);
+}
+
+.main__video_playback{  
+    /* border: 1px solid black; */
+    padding: 10px;
+    height: var(--video-playback-height);
+}
+
+.main__video{
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+    border-radius: 10px;
+}
+
+/* Video Playback CSS start */
 
 /* --------------------------------------------------------------------------------------------------------- */

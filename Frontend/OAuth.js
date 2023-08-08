@@ -51,7 +51,8 @@ if(Object.keys(params).length > 0)
 }
 
 //hiding the access token
-window.history.pushState({}, document.title,"/Frontend/" + "index.html");
+// window.history.pushState({}, document.title,"/Frontend/" + "index.html");
+window.history.pushState({}, document.title,"/Frontend/" + "video_playback.html");
 
 //storing user data
 let info = JSON.parse(localStorage.getItem("authInfo"));
