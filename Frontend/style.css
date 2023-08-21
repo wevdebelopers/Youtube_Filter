@@ -608,6 +608,38 @@ body{
     border-radius: 10px;
 }
 
+/* channel page */
+.channel_page_container{
+    top:4em;
+    height: 10em;
+    position: relative;
+    width: var(--max-width-main);
+    left: var(--leftSpacing);
+    border-width: 50px;
+    border-color: greenyellow;
+}
+.channel_info_container{
+    background-color: rgb(46, 46, 46);
+    height: 7.5em;
+    display: flex;
+    justify-content: left;
+}
+.channel_info_container img{
+    padding: 0.3em;
+    margin-right: 1em;
+    width: 12.5%;
+}
+.channel_info_container h1{
+    align-self: center;
+}
+.channel_video_container{
+    display: grid;
+    padding: 0.4em;
+}
+.channel_playlist_container{
+    display: grid;
+    padding: 0.4em;
+}
 /* Video Playback CSS start */
 
 /* --------------------------------------------------------------------------------------------------------- */
