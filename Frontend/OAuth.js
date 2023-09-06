@@ -92,7 +92,7 @@ let channelContainer = document.getElementById("channelContainer");
 let OrgchannelElement = document.getElementsByClassName("sidebar__subInfo_card")[0];
 let subscriptionsApi = "https://youtube.googleapis.com/youtube/v3/subscriptions?part=snippet%2CcontentDetails&mine=true";
 let subscriptionsUrl = subscriptionsApi + ApiKey;
-let channelContentApi = "https://www.googleapis.com/youtube/v3/channels?part=snippet%2CcontentDetails"
+let channelContentApi = "https://youtube.googleapis.com/youtube/v3/channels?part=snippet%2CcontentDetails"
 let channelPlaylistApi = "https://youtube.googleapis.com/youtube/v3/playlists?part=snippet%2CcontentDetails"
 let channelCount = 0;
 
@@ -387,6 +387,11 @@ async function ShowChannelPage(URL)
   while (elements[0]) {
       elements[0].parentNode.removeChild(elements[0]);
   }
+  var elements = channelPlaylistContainerDiv.getElementsByClassName("channel_video_preview_container");
+  while (elements[0]) {
+      elements[0].parentNode.removeChild(elements[0]);
+  }
+
   
   smallVideoPlayback.style.display = 'none';
   channelPageContainer.style.display = 'block';
@@ -396,14 +401,69 @@ async function ShowChannelPage(URL)
   let returnedData2 = await response.json(); console.log(returnedData2);
   let channelTitle = returnedData2.items[0].snippet.title;
   let channelProfileUrl = returnedData2.items[0].snippet.thumbnails.medium.url;
-  let id = returnedData2.items[0].id; console.log(id);
+  let id = returnedData2.items[0].id; //console.log(id);
   let playListUrl = channelPlaylistApi + "&channelId=" + id + ApiKey;
+  let uploadPlaylistId = returnedData2.items[0].contentDetails.relatedPlaylists.uploads; console.log(uploadPlaylistId);
+  let uploadPlaylistURL =  playlistItemApi + "&playlistId=" + uploadPlaylistId + ApiKey;
 
   channelPageContainer.childNodes[1].childNodes[1].setAttribute('src', channelProfileUrl);
   channelPageContainer.childNodes[1].childNodes[3].textContent = channelTitle;
   
+  GetChannelVideos(uploadPlaylistURL, uploadPlaylistId);
   setWindowToVid();
   getChannelPlaylists(playListUrl, id);
+}
+
+let orgChannelVideoDiv = document.getElementById("channelVideoDiv"); console.log(orgChannelVideoDiv)
+
+async function GetChannelVideos(URL, uploadPlaylistId)
+{
+  for(let k = 0; k<2; k++)
+  {
+    let response = await fetch(URL,{
+      headers:{
+        "Authorization":`Bearer ${info['access_token']}`,
+        "Accept": 'application/json'
+      }
+    })
+
+    let returnedData = await response.json(); console.log(returnedData);
+    ShowChannelVideos(returnedData);
+    if(returnedData.nextPageToken)
+      URL = playlistItemApi + "&pageToken=" + returnedData.nextPageToken + "&playlistId=" + uploadPlaylistId + ApiKey;
+    else 
+      break;
+  }
+  orgChannelVideoDiv.remove();
+}
+
+function ShowChannelVideos(returnedData)
+{
+  for(const element of returnedData.items)
+  {
+    if(element.snippet.title === "Private video")
+      continue;
+    if(element.snippet.title.includes("#shorts"))
+      continue;
+      
+    let videoTitle = element.snippet.title;
+    let thumbnail = element.snippet.thumbnails.medium.url;
+    let videoId = element.contentDetails.videoId;
+    let videoDiv = orgChannelVideoDiv.cloneNode(true);
+    let videoUrl = "https://www.youtube.com/embed/" + videoId;
+
+    videoDiv.childNodes[1].childNodes[3].textContent = videoTitle;
+    videoDiv.childNodes[1].childNodes[1].childNodes[1].setAttribute('src', thumbnail);
+    channelPlaylistContainerDiv.appendChild(videoDiv);
+
+    videoDiv.addEventListener('click', function(){
+
+      smallVideoPlayback.style.display = 'block';
+      channelPageContainer.style.display = 'none';
+      smallVideoPlayback.childNodes[1].childNodes[1].setAttribute('src', videoUrl);
+
+    })
+  }
 }
 
 
