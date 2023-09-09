@@ -364,7 +364,8 @@ function ShowChannelPlayList(returnedData)
 
     channelPlaylistDiv.childNodes[1].childNodes[1].childNodes[1].setAttribute('src', thumbnail);
     channelPlaylistDiv.childNodes[1].childNodes[1].childNodes[3].childNodes[3].appendChild(videoCountNode);
-    channelPlaylistDiv.childNodes[1].childNodes[3].appendChild(playlistTitleNode);
+    // channelPlaylistDiv.childNodes[1].childNodes[3].appendChild(playlistTitleNode);
+    channelPlaylistDiv.childNodes[1].childNodes[3].childNodes[1].appendChild(playlistTitleNode);
     channelPlaylistContainerDiv.appendChild(channelPlaylistDiv);
     
     let URL = playlistItemApi + "&playlistId=" + element.id + ApiKey;

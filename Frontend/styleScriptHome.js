@@ -10,6 +10,21 @@ window.addEventListener('resize', setPreviewVideoHeight);
 window.addEventListener('DOMContentLoaded', setPreviewVideoHeight);
 
 
+var setChannelPagePlaylistHeight = () => {
+    const videoContainer = document.querySelector('.front_thumbnail_container');
+    const root1 = document.querySelector(':root');
+
+    var height = videoContainer.clientHeight;
+    root1.style.setProperty('--height-playlist-rightinfo-container', `${height}px`);
+    root1.style.setProperty('--height-playlist-right-title-container', `${height*(2/3)-4}px`);
+    root1.style.setProperty('--height-playlist-right-btn-container', `${height*(1/3)+4}px`);
+}
+
+window.addEventListener('resize', setChannelPagePlaylistHeight);
+window.addEventListener('DOMContentLoaded', setChannelPagePlaylistHeight);
+
+
+
 const frontVideoBtn = document.querySelector('.front_video_section_title');
 const frontPlaylistBtn = document.querySelector('.front_playlist_section_title');
 
