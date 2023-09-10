@@ -510,6 +510,7 @@ body{
     display: grid;
     grid-template-columns: 1fr 2.2fr;
     height: 4.5em;
+    padding: 0.4em 0em 0.4em 0em;
 }
 
 .rightsidebar__playlist_image_container{
@@ -554,6 +555,10 @@ body{
 .rightsidebar__playlist_info_container{
     display: grid;
     padding-left: 0.4em;
+    grid-template-rows: 2fr 1.4fr;
+    padding-bottom: 0.4em;
+    /* row-gap: 0.2em; */
+    /* height: 4.6em; */
 }
 
 .rightsidebar__playlist_info_title{
@@ -563,13 +568,51 @@ body{
     align-items: center;
     width: 16em;
     overflow: hidden;
+    height: 2.6em; /*to prevent stretching*/
+    padding-top: 0.1em;
+
+    /* background-color: pink; */
 }
 
 .rightsidebar__playlist_info_owner{
     font-size: 0.7em;
     color: hsl(0, 2%, 75%);
+    /* border: 1px solid red; */
+    margin-right: 1.8em;
+
+    /* background-color: chartreuse; */
+
     display: flex;
+    justify-content: space-between;
     align-items: start;
+    box-sizing: border-box;
+    height: 100%;
+}
+
+.rightsidebar_playlist_info_owner_name{
+    overflow: hidden;
+    display: flex;
+    /* background-color: palegoldenrod; */
+    flex:1;
+}
+
+.remove_playlist_from_others_btn{
+    border-radius: 5px;
+    border: 1px solid hsl(0, 2%, 68%);
+    background-color: #0f0f0f;
+    color:white;
+    height: 100%;
+    padding: 0em 1em 0em 1em;
+    box-sizing: border-box;
+    font-size: 1.1em;
+    font-weight: bold;
+    transition: all 0.17s;
+}
+
+.remove_playlist_from_others_btn:hover{
+    cursor: pointer;
+    background-color: white;
+    color: #0f0f0f;
 }
 
 /* Right Sidebar CSS end*/
