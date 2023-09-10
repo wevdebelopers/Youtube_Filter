@@ -294,7 +294,7 @@ function getPlaylistItemData(returnedData1){
     let videoId = element.contentDetails.videoId;
     let playlistId = element.id;
     let videoDiv = OrgPlaylistVideoDiv.cloneNode(true);
-    let videoUrl = "https://www.youtube.com/embed/" + videoId;
+    let videoUrl = "https://www.youtube.com/embed/" + videoId + "?&autoplay=1&rel=0";
 
     videoDiv.childNodes[5].childNodes[1].textContent = videoTitle;
     videoDiv.childNodes[5].childNodes[3].textContent = channelTitle;
@@ -451,7 +451,7 @@ function ShowChannelVideos(returnedData)
     let thumbnail = element.snippet.thumbnails.medium.url;
     let videoId = element.contentDetails.videoId;
     let videoDiv = orgChannelVideoDiv.cloneNode(true);
-    let videoUrl = "https://www.youtube.com/embed/" + videoId;
+    let videoUrl = "https://www.youtube.com/embed/" + videoId + "?&autoplay=1&rel=0";
 
     videoDiv.childNodes[1].childNodes[3].textContent = videoTitle;
     videoDiv.childNodes[1].childNodes[1].childNodes[1].setAttribute('src', thumbnail);
