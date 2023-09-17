@@ -219,7 +219,7 @@ function getPlaylistData(returnedData)
     let videoCountNode = document.createTextNode(videoCount);
     let playlistElement = orgPlaylistElement.cloneNode(true);
     let titleDiv = playlistElement.childNodes[3].childNodes[1];
-    let channelDiv = playlistElement.childNodes[3].childNodes[3];
+    let channelDiv = playlistElement.childNodes[3].childNodes[3].childNodes[1];
     let imgDiv = playlistElement.childNodes[1].childNodes[1].childNodes[3];
     let videoCountDiv = playlistElement.childNodes[1].childNodes[1].childNodes[1];
 
