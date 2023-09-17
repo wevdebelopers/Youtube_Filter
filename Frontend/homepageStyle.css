@@ -1,0 +1,112 @@
+body{
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: 'Roboto', sans-serif;
+}
+
+.homepage_container{
+    background-color: blueviolet;
+    display: grid;
+    height: 100vh;
+    grid-template-columns: 1.5fr 1fr;
+}
+
+.homepage_left_section{
+    background-color: rgb(3, 7, 59);
+
+    display: grid;
+    grid-template-rows: 1fr 13fr;
+    height: 100%;
+    padding: 1em 2em 3em 3em;
+
+    box-sizing: border-box;
+    margin: 0;
+}
+
+.homepage_logo_section{
+    /* border: 1px solid red; */
+
+    display: flex;
+    align-items: center;
+
+    color:rgb(193, 143, 232);    
+    font-size: 1.5em;
+    font-weight: bold;
+}
+
+.homepage_company_values_section{
+    /* border:1px solid white; */
+
+    /* margin-top:1em; */
+
+    font-size: 3em;
+    /* display: flex; */
+    display: grid;
+    grid-template-rows: 1fr 1.15fr;
+    /* align-items: center; */
+    flex-direction: column;
+    color:white;
+}
+
+.homepage_static_text{
+    font-weight: bold;
+    display: flex;
+    align-items: end;
+    width: 100%;
+
+    /* border: 1px solid red; */
+}
+
+.homepage_changing_text{
+    display: block;
+    /* justify-content: start; */
+    width: 100%;
+    font-size: 0.9em;
+    /* border: 1px solid rebeccapurple; */
+}
+
+.homepage_right_section{
+    background-color: #0f0f0f;
+    padding: 2em 4em 2em 4em;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    row-gap: 1em;
+}
+
+.homepage_login_title{
+    display: block;
+    width: 100%;
+    text-align: center;
+
+    font-weight: bold;
+    font-size: 2em;
+    color: white;
+}
+
+.homepage_login_btn_container{
+    width: 100%;
+}
+
+.homepage_login_btn{
+    /* border: 1px solid white; */
+    border: none;
+    border-radius: 8px;
+    padding: 1em 0em 1em 0em;
+    background-color: #3C46FF;
+    color: white;
+
+    font-size: 1em;
+    font-weight: bold;
+    width: 100%;
+    transition: all 0.17s;
+}
+
+.homepage_login_btn:hover{
+    cursor: pointer;
+    background-color: #1d25c8;
+}
