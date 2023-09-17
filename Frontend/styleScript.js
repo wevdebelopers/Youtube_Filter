@@ -64,3 +64,31 @@ window.addEventListener('resize', setVideo_height);
 window.addEventListener('DOMContentLoaded', setVideo_height);
 
 /*--------------------------------------------------------------------------------*/
+
+// async function addPlaylistToLibrary(apiUrl) {
+//     let temp = {
+//       snippet: {
+//         title: "otherPlaylistIds",
+//         description: "This is a sample playlist description.",
+//         tags: [
+//           "sample playlist",
+//           "API call"
+//         ],
+//         defaultLanguage: "en"
+//       },
+//       status: {
+//         privacyStatus: "private"
+//       }
+//     }
+//     console.log(apiUrl);
+//     const response = await fetch(apiUrl, {
+//       method: 'POST',
+//       headers: {
+//         'Authorization': `Bearer ${info['access_token']}`,
+//         'Content-Type': 'application/json',
+//         'Accept': 'application/json' 
+//       },
+//       body: JSON.stringify(temp)
+//     });
+//     console.log(response);
+// }
