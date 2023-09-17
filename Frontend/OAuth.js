@@ -229,7 +229,7 @@ function getPlaylistData(returnedData)
       opid = true;
       idDescription = element.snippet.description;
       let newIds = idDescription.split(',');
-
+      console.log(newIds.length);
       for(let i in newIds)
       {
 
@@ -334,7 +334,7 @@ function findId(des, id)
 
 // Updating the playlistIds in Description of otherPlaylistIds playlist
 
-async function updatePlaylistIds(modifyPlaylistApiUrl, Id, des)
+function updatePlaylistIds(modifyPlaylistApiUrl, Id, des)
 {
   let temp = {
     id: Id,
@@ -344,7 +344,7 @@ async function updatePlaylistIds(modifyPlaylistApiUrl, Id, des)
     }
   }
 
-  const response = await fetch(modifyPlaylistApiUrl, {
+  const response = fetch(modifyPlaylistApiUrl, {
     method: 'PUT',
     headers: {
       'Authorization': `Bearer ${info['access_token']}`,
@@ -353,8 +353,9 @@ async function updatePlaylistIds(modifyPlaylistApiUrl, Id, des)
     },
     body: JSON.stringify(temp)
   });
-
-  getPlaylist(playListUrl);
+  
+  setTimeout(getPlaylist(playListUrl), 300);
+  
 }
 
 // Creating and adding new playlist to library
@@ -387,9 +388,6 @@ async function addPlaylistToLibrary(apiUrl) {
 }
 
 // 
-
-
-
 
 // Fetching and Showing Playlist Videos
 
