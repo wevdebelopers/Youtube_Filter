@@ -1,3 +1,12 @@
+// //Assuming user came from home page -> redirect to google login page
+// let clickLoginBtn = () => {
+//   console.log(signed);
+//   if(signed === 0){
+//     OAuth.click();
+//   }  
+// }
+// window.addEventListener('load', clickLoginBtn);
+
 //log in using oauth2
 const OAuth = document.querySelector('.header__account_photo');
 let signed = 0 ;
