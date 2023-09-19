@@ -573,12 +573,36 @@ function ShowChannelPlayList(returnedData)
         let channelDiv = playlistElement.childNodes[3].childNodes[3].childNodes[1];
         let imgDiv = playlistElement.childNodes[1].childNodes[1].childNodes[3];
         let videoCountDiv = playlistElement.childNodes[1].childNodes[1].childNodes[1];
+        let removeButtonDiv = playlistElement.childNodes[3].childNodes[3].childNodes[3];
 
         titleDiv.appendChild(playlistTitleNode);
         channelDiv.appendChild(channelTitleNode);
         imgDiv.setAttribute('src', thumbnail);
         videoCountDiv.appendChild(videoCountNode);
         playlistContainer.appendChild(playlistElement);
+
+        removeButtonDiv.addEventListener('click', function() {
+            
+          let elements = idDescription.split(",");
+          let ndes = "";
+          for(let i = 1; i<elements.length; i += 2)
+          {
+            if(elements[i] == element.id)
+            {
+              continue;
+            }
+            else
+            {
+              ndes += ',';
+              ndes += elements[i];
+              ndes += ',';
+              ndes += elements[i+1];
+            }
+          }
+          playlistContainer.removeChild(playlistElement)
+          updatePlaylistIds(modifyPlaylistApiUrl, playlistIdsPlaylistId, ndes);
+        
+        })
   
         playlistElement.addEventListener('click', function() {
 
