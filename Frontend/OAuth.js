@@ -57,7 +57,6 @@ window.history.pushState({}, document.title,"/Frontend/" + "index.html");
 
 //storing user data
 let info = JSON.parse(localStorage.getItem("authInfo"));
-console.log(info);
 
 function logout()
 {
@@ -80,7 +79,6 @@ fetch("https://www.googleapis.com/oauth2/v3/userinfo",{
 })
 .then((data) => data.json())
 .then((info) => {
-  //console.log(info);
   document.getElementById('image').setAttribute('src', info.picture);
 })
 
@@ -222,6 +220,7 @@ function getPlaylistData(returnedData)
     let channelDiv = playlistElement.childNodes[3].childNodes[3].childNodes[1];
     let imgDiv = playlistElement.childNodes[1].childNodes[1].childNodes[3];
     let videoCountDiv = playlistElement.childNodes[1].childNodes[1].childNodes[1];
+    let removeButtonDiv = playlistElement.childNodes[3].childNodes[3].childNodes[3];
 
     if(playlistTitle === "otherPlaylistIds")
     {
@@ -229,16 +228,17 @@ function getPlaylistData(returnedData)
       opid = true;
       idDescription = element.snippet.description;
       let newIds = idDescription.split(',');
-      console.log(newIds.length);
+    
       for(let i in newIds)
       {
-
-        if(newIds[i].length < 10)
+        if(newIds[i].length < 10 )
         {
           continue;
         }
+  
+        let x = Number(i)+1;
 
-        async function getpbi(xid)
+        async function getpbi(xid, cnt)
         {
           let urlfId = "https://youtube.googleapis.com/youtube/v3/playlists?part=snippet&id=" + xid + ApiKey;
           const res = await fetch(urlfId, 
@@ -250,25 +250,26 @@ function getPlaylistData(returnedData)
             }
           });
 
-          let ret = await res.json();
+          let ret = await res.json(); 
 
           let playlistTitle = ret.items[0].snippet.title;
           let channelTitle = ret.items[0].snippet.channelTitle;
           let thumbnail = ret.items[0].snippet.thumbnails.medium.url;
-          //let videoCount = ret.items[0].pageInfo.totalResults;
+          let videoCount = cnt;
           let playlistTitleNode = document.createTextNode(playlistTitle);
           let channelTitleNode = document.createTextNode(channelTitle);
-          //let videoCountNode = document.createTextNode(videoCount);
+          let videoCountNode = document.createTextNode(videoCount);
           let playlistElement = orgPlaylistElement.cloneNode(true);
           let titleDiv = playlistElement.childNodes[3].childNodes[1];
-          let channelDiv = playlistElement.childNodes[3].childNodes[3];
+          let channelDiv = playlistElement.childNodes[3].childNodes[3].childNodes[1];
           let imgDiv = playlistElement.childNodes[1].childNodes[1].childNodes[3];
-          //let videoCountDiv = playlistElement.childNodes[1].childNodes[1].childNodes[1];
+          let videoCountDiv = playlistElement.childNodes[1].childNodes[1].childNodes[1];
+          let removeButtonDiv = playlistElement.childNodes[3].childNodes[3].childNodes[3];
 
           titleDiv.appendChild(playlistTitleNode);
           channelDiv.appendChild(channelTitleNode);
           imgDiv.setAttribute('src', thumbnail);
-          //videoCountDiv.appendChild(videoCountNode);
+          videoCountDiv.appendChild(videoCountNode);
           playlistContainer.appendChild(playlistElement);
 
           playlistElement.addEventListener('click', function() {
@@ -277,7 +278,7 @@ function getPlaylistData(returnedData)
 
             currentPlaylist.childNodes[1].textContent = playlistTitle;
             currentPlaylist.childNodes[3].childNodes[1].textContent = channelTitle;
-            //currentPlaylist.childNodes[3].childNodes[3].textContent = "1/" + videoCount;
+            currentPlaylist.childNodes[3].childNodes[3].textContent = "1/" + videoCount;
             playlistVideoContainer.innerHTML = '';
 
 
@@ -285,8 +286,31 @@ function getPlaylistData(returnedData)
               console.log("playlist item fetch error");
             })
           })
+
+          removeButtonDiv.addEventListener('click', function() {
+            
+            let elements = idDescription.split(",");
+            let ndes = "";
+            for(let i = 1; i<elements.length; i += 2)
+            {
+              if(elements[i] == ret.items[0].id)
+              {
+                continue;
+              }
+              else
+              {
+                ndes += ',';
+                ndes += elements[i];
+                ndes += ',';
+                ndes += elements[i+1];
+              }
+            }
+            playlistContainer.removeChild(playlistElement)
+            updatePlaylistIds(modifyPlaylistApiUrl, playlistIdsPlaylistId, ndes);
+          
+          })
         }
-        getpbi(newIds[i]);
+        getpbi(newIds[i], newIds[x]);
       }
       continue;
     }
@@ -311,9 +335,25 @@ function getPlaylistData(returnedData)
         console.log("playlist item fetch error");
       })
     })
+
+    removeButtonDiv.addEventListener('click', function() {
+
+      let deletePlaylistURL = "https://youtube.googleapis.com/youtube/v3/playlists?id=" + element.id + ApiKey;
+      
+      const response = fetch(deletePlaylistURL, {
+        method: 'DELETE',
+        headers: {
+          'Authorization': `Bearer ${info['access_token']}`,
+          'Accept': 'application/json' 
+        }
+      });
+
+      playlistContainer.removeChild(playlistElement)
+      
+    })
+
   }
 }
-orgPlaylistElement.remove();
 
 // Finding that plalist exist already or not
 
@@ -323,7 +363,7 @@ let modifyPlaylistApiUrl = "https://youtube.googleapis.com/youtube/v3/playlists?
 function findId(des, id)
 {
   let elements = des.split(",");
-  console.log(elements);
+  
   for(const i in elements)
   {
     if(elements[i] === id)
@@ -354,8 +394,7 @@ function updatePlaylistIds(modifyPlaylistApiUrl, Id, des)
     body: JSON.stringify(temp)
   });
   
-  setTimeout(getPlaylist(playListUrl), 300);
-  
+  //getPlaylist(playListUrl); 
 }
 
 // Creating and adding new playlist to library
@@ -393,6 +432,7 @@ async function addPlaylistToLibrary(apiUrl) {
 
 async function getPlaylistItem(URL, id){
 
+  playlistItemCount = 0;
   for(let k = 0; k<100; k++)
   {
     let response = await fetch(URL,{
@@ -463,7 +503,7 @@ async function getChannelPlaylists(URL, channelId)
       }
     })
 
-    let returnedData = await response.json(); //console.log(returnedData);
+    let returnedData = await response.json(); 
     ShowChannelPlayList(returnedData);
     if(returnedData.nextPageToken)
       URL = channelPlaylistApi + "&pageToken=" + returnedData.nextPageToken + "&channelId=" + channelId + ApiKey;
@@ -519,8 +559,35 @@ function ShowChannelPlayList(returnedData)
     addButton.addEventListener('click', ()=>{
       if(findId(idDescription, element.id) === false)
       {
+        let playlistElement = orgPlaylistElement.cloneNode(true);
+        let titleDiv = playlistElement.childNodes[3].childNodes[1];
+        let channelDiv = playlistElement.childNodes[3].childNodes[3].childNodes[1];
+        let imgDiv = playlistElement.childNodes[1].childNodes[1].childNodes[3];
+        let videoCountDiv = playlistElement.childNodes[1].childNodes[1].childNodes[1];
+
+        titleDiv.appendChild(playlistTitleNode);
+        channelDiv.appendChild(channelTitleNode);
+        imgDiv.setAttribute('src', thumbnail);
+        videoCountDiv.appendChild(videoCountNode);
+        playlistContainer.appendChild(playlistElement);
+  
+        playlistElement.addEventListener('click', function() {
+
+          let playListItemUrl = playlistItemApi + "&playlistId=" + element.id + ApiKey;
+
+          currentPlaylist.childNodes[1].textContent = playlistTitle;
+          currentPlaylist.childNodes[3].childNodes[1].textContent = channelTitle;
+          currentPlaylist.childNodes[3].childNodes[3].textContent = "1/" + videoCount;
+          playlistVideoContainer.innerHTML = '';
+
+          getPlaylistItem(playListItemUrl, res.id).catch(error => {
+            console.log("playlist item fetch error");
+          })
+        })
         idDescription += ",";
         idDescription += element.id;
+        idDescription += ",";
+        idDescription += videoCount;
         updatePlaylistIds(modifyPlaylistApiUrl, playlistIdsPlaylistId, idDescription);
       }
     })
