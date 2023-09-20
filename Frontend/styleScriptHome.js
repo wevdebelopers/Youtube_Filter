@@ -64,3 +64,28 @@ var setWindowToPlaylist = ()=> {
 
 frontVideoBtn.addEventListener('click', setWindowToVid);
 frontPlaylistBtn.addEventListener('click', setWindowToPlaylist);
+
+
+const headerProfilePhoto = document.querySelector('.header__account_photo');
+var profile_extended = 0;
+
+headerProfilePhoto.addEventListener('click', () => {
+    const logOutContainer = document.querySelector('.header__logout_container');
+    if(profile_extended == 0){
+        logOutContainer.style.display = 'block';
+        profile_extended = 1;
+    }else{
+        logOutContainer.style.display = 'none';
+        profile_extended = 0;
+    }
+})
+
+//If clicked anywhere outside and profile is also extended -> retract
+document.addEventListener('click', (event) => {
+    const logOutContainer = document.querySelector('.header__logout_container');
+    const headerProfileImg = document.querySelector('#image');
+    if(event.target.className != logOutContainer.className && profile_extended == 1 && event.target.id != headerProfileImg.id){
+        profile_extended = 0;
+        logOutContainer.style.display = 'none';
+    }
+})

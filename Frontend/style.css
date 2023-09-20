@@ -167,6 +167,36 @@ body{
     height: 2.5em;
 }
 
+.header__account_photo{
+    position: relative;
+}
+
+.header__account_photo img:hover{
+    cursor: pointer;
+}
+
+.header__logout_container{
+    display: none;
+    font-weight: bold;
+    font-size: 1em;
+    position: absolute;
+    right:-20%;
+    top: 120%;
+    padding: 1em 3em 1em 3em;
+    background-color: white;
+    color:#0f0f0f;
+    border-radius: 8px;
+    border: 2px solid white;
+    transition: all 0.17s;
+}
+
+.header__logout_container:hover{
+    color:white;
+    background-color: #0f0f0f;
+    border: 2px solid hsl(0, 0%, 41%);
+    cursor: pointer;
+}
+
 /* .header__account_photo_icon{
     font-size: 2.1em;
 }
