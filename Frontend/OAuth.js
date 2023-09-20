@@ -1,3 +1,4 @@
+
 const logOutBtn = document.querySelector('.header__logout_container');
 logOutBtn.addEventListener('click', (event)=>{
   //To stop parent element from getting triggered
@@ -618,7 +619,7 @@ function ShowChannelPlayList(returnedData)
           currentPlaylist.childNodes[3].childNodes[3].textContent = "1/" + videoCount;
           playlistVideoContainer.innerHTML = '';
 
-          getPlaylistItem(playListItemUrl, res.id).catch(error => {
+          getPlaylistItem(playListItemUrl, element.id).catch(error => {
             console.log("playlist item fetch error");
           })
         })
@@ -647,6 +648,7 @@ async function ShowChannelPage(URL)
 
   
   smallVideoPlayback.style.display = 'none';
+  smallVideoPlayback.childNodes[1].childNodes[1].setAttribute('src', "");
   channelPageContainer.style.display = 'block';
 
 
