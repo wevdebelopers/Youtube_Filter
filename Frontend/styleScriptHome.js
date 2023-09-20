@@ -66,8 +66,9 @@ frontVideoBtn.addEventListener('click', setWindowToVid);
 frontPlaylistBtn.addEventListener('click', setWindowToPlaylist);
 
 
-const headerProfilePhoto = document.querySelector('#header__account_photo');
+const headerProfilePhoto = document.querySelector('.header__account_photo');
 var profile_extended = 0;
+
 headerProfilePhoto.addEventListener('click', () => {
     const logOutContainer = document.querySelector('.header__logout_container');
     if(profile_extended == 0){

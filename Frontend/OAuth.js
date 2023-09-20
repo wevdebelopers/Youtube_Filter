@@ -7,7 +7,7 @@ logOutBtn.addEventListener('click', (event)=>{
 })
 
 //log in using oauth2
-const OAuth = document.querySelector('#header__account_photo');
+const OAuth = document.querySelector('.header__account_photo');
 let signed = 0 ;
 let currentLocation = window.location.href;
 OAuth.addEventListener('click', function() {
