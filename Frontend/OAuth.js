@@ -4,7 +4,7 @@ logOutBtn.addEventListener('click', (event)=>{
   event.stopPropagation();
 
   //Log out and redirect user to homepage
-  console.log('logout clicked!');
+  //console.log('logout clicked!');
   logout();
   signed = 0;
 })
@@ -51,13 +51,6 @@ OAuth.addEventListener('click', function() {
     document.body.appendChild(form);
     form.submit();
     stats = 1;
-    console.log('OAuth was clicked!');
-    signed = 1;
-  }
-  else
-  {
-    // logout();
-    // signed = 0;
   }
 });
 
@@ -90,7 +83,6 @@ function logout()
     }
   })
   .then((data) => {
-    // window.location.href = "http://127.0.0.1:5500/Youtube_Filter/Frontend/index.html";
     window.location.href = "http://127.0.0.1:5500/Frontend/homepage.html";
   })
   //remove from local storage
@@ -249,7 +241,6 @@ function getPlaylistData(returnedData)
 
     if(playlistTitle === "otherPlaylistIds")
     {
-      console.log(playlistTitle)
       playlistIdsPlaylistId = element.id;
       opid = true;
       idDescription = element.snippet.description;
