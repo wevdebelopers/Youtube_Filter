@@ -83,7 +83,8 @@ headerProfilePhoto.addEventListener('click', () => {
 //If clicked anywhere outside and profile is also extended -> retract
 document.addEventListener('click', (event) => {
     const logOutContainer = document.querySelector('.header__logout_container');
-    if(event.target.className != logOutContainer.className && profile_extended == 1 && event.target.className != headerProfilePhoto.className){
+    const headerProfileImg = document.querySelector('#image');
+    if(event.target.className != logOutContainer.className && profile_extended == 1 && event.target.id != headerProfileImg.id){
         profile_extended = 0;
         logOutContainer.style.display = 'none';
     }

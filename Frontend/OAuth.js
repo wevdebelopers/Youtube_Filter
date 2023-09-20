@@ -4,11 +4,26 @@ logOutBtn.addEventListener('click', (event)=>{
   event.stopPropagation();
 
   //Log out and redirect user to homepage
+  console.log('logout clicked!');
+  logout();
+  signed = 0;
 })
+
+
+//main page loaded but not logged in -> redirect to homepage
+let checkLogIn = () => {
+  if(localStorage.getItem('authInfo') == null){
+    window.location.href = "http://127.0.0.1:5500/Frontend/homepage.html";
+  }else{
+    console.log("logged in");
+  }
+}
+window.addEventListener('DOMContentLoaded', checkLogIn);
+
 
 //log in using oauth2
 const OAuth = document.querySelector('.header__account_photo');
-let signed = 0 ;
+let signed = 1 ;
 let currentLocation = window.location.href;
 OAuth.addEventListener('click', function() {
   if(signed === 0)
@@ -75,8 +90,11 @@ function logout()
     }
   })
   .then((data) => {
-    window.location.href = "http://127.0.0.1:5500/Youtube_Filter/Frontend/index.html";
+    // window.location.href = "http://127.0.0.1:5500/Youtube_Filter/Frontend/index.html";
+    window.location.href = "http://127.0.0.1:5500/Frontend/homepage.html";
   })
+  //remove from local storage
+  localStorage.removeItem("authInfo");
 }
 
 //fetching user details
