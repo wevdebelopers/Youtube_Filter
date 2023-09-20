@@ -15,7 +15,7 @@ let checkLogIn = () => {
   if(localStorage.getItem('authInfo') == null){
     window.location.href = "http://127.0.0.1:5500/Frontend/homepage.html";
   }else{
-    console.log("logged in");
+    // console.log("logged in");
   }
 }
 window.addEventListener('DOMContentLoaded', checkLogIn);
