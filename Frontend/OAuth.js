@@ -1,14 +1,13 @@
-// //Assuming user came from home page -> redirect to google login page
-// let clickLoginBtn = () => {
-//   console.log(signed);
-//   if(signed === 0){
-//     OAuth.click();
-//   }  
-// }
-// window.addEventListener('load', clickLoginBtn);
+const logOutBtn = document.querySelector('.header__logout_container');
+logOutBtn.addEventListener('click', (event)=>{
+  //To stop parent element from getting triggered
+  event.stopPropagation();
+
+  //Log out and redirect user to homepage
+})
 
 //log in using oauth2
-const OAuth = document.querySelector('.header__account_photo');
+const OAuth = document.querySelector('#header__account_photo');
 let signed = 0 ;
 let currentLocation = window.location.href;
 OAuth.addEventListener('click', function() {
