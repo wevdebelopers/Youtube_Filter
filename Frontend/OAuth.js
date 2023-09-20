@@ -202,7 +202,6 @@ async function getPlaylist(URL){
   {
     let x = "https://youtube.googleapis.com/youtube/v3/playlists?part=snippet%2Cstatus" + ApiKey;
     addPlaylistToLibrary(x);
-    location.reload();
   }
 } 
 getPlaylist(playListUrl).catch(error => {
@@ -232,6 +231,7 @@ function getPlaylistData(returnedData)
 
     if(playlistTitle === "otherPlaylistIds")
     {
+      console.log(playlistTitle)
       playlistIdsPlaylistId = element.id;
       opid = true;
       idDescription = element.snippet.description;
@@ -411,11 +411,7 @@ async function addPlaylistToLibrary(apiUrl) {
     let temp = {
       snippet: {
         title: "otherPlaylistIds",
-        description: "This is a sample playlist description.",
-        tags: [
-          "sample playlist",
-          "API call"
-        ],
+        description: "",
         defaultLanguage: "en"
       },
       status: {
@@ -432,6 +428,7 @@ async function addPlaylistToLibrary(apiUrl) {
       },
       body: JSON.stringify(temp)
     });
+
 }
 
 // 
