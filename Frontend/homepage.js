@@ -39,8 +39,8 @@ setInterval(changeText, 5000);
 
 //From OAuth.js file
 const OAuth = document.querySelector('.homepage_login_btn');
-let signed = 0 ;
 let currentLocation = window.location.href;
+signed = 0;
 OAuth.addEventListener('click', function() {
   if(signed === 0)
   {
@@ -52,7 +52,7 @@ OAuth.addEventListener('click', function() {
         "client_id" : "182985029199-aq3p34sjqeteo762eahvlllbpffjegns.apps.googleusercontent.com",
         "redirect_uri" : "http://127.0.0.1:5500/Frontend/index.html",
         "response_type" : "token",
-        "scope" : "https://www.googleapis.com/auth/userinfo.profile https://www.googleapis.com/auth/youtube.readonly",
+        "scope" : "https://www.googleapis.com/auth/userinfo.profile https://www.googleapis.com/auth/youtube",
         "include_granted_scopes" : "true",
         "state" : "pass-through-value"
     }
@@ -67,12 +67,6 @@ OAuth.addEventListener('click', function() {
     document.body.appendChild(form);
     form.submit();
     stats = 1;
-    console.log('OAuth was clicked!');
     signed = 1;
-  }
-  else
-  {
-    // logout();
-    // signed = 0;
   }
 });

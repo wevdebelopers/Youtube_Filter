@@ -7,7 +7,6 @@ logOutBtn.addEventListener('click', (event)=>{
   //Log out and redirect user to homepage
   //console.log('logout clicked!');
   logout();
-  signed = 0;
 })
 
 
@@ -52,6 +51,7 @@ OAuth.addEventListener('click', function() {
     document.body.appendChild(form);
     form.submit();
     stats = 1;
+    signed = 1;
   }
 });
 
@@ -102,15 +102,15 @@ fetch("https://www.googleapis.com/oauth2/v3/userinfo",{
 })
 
 // api key 
-let ApiKey = "&key=AIzaSyCN1SYd55iUhGcU5s6eR2wgxTVCcjsd6hE";
+let ApiKey = "&key=AIzaSyD9DQ5vZPpX8eWpF6z8-E7c1N2Ts8V4kAA";
 
 //Fetching and Showing the subscribed channels list.
 let channelContainer = document.getElementById("channelContainer");
 let OrgchannelElement = document.getElementsByClassName("sidebar__subInfo_card")[0];
-let subscriptionsApi = "https://youtube.googleapis.com/youtube/v3/subscriptions?part=snippet%2CcontentDetails&mine=true";
+let subscriptionsApi = "https://youtube.googleapis.com/youtube/v3/subscriptions?part=snippet%2CcontentDetails&mine=true&maxResults=50";
 let subscriptionsUrl = subscriptionsApi + ApiKey;
-let channelContentApi = "https://youtube.googleapis.com/youtube/v3/channels?part=snippet%2CcontentDetails"
-let channelPlaylistApi = "https://youtube.googleapis.com/youtube/v3/playlists?part=snippet%2CcontentDetails"
+let channelContentApi = "https://youtube.googleapis.com/youtube/v3/channels?part=snippet%2CcontentDetails&maxResults=50"
+let channelPlaylistApi = "https://youtube.googleapis.com/youtube/v3/playlists?part=snippet%2CcontentDetails&maxResults=50"
 let channelCount = 0;
 
 async function getSubscription(){
@@ -173,8 +173,8 @@ function getChannel(returnedData)
 // fetching the user playlists
 let playlistContainer = document.getElementById("playlistContainer");
 let orgPlaylistElement = document.getElementById("playlistElement");
-let playlistApi = "https://youtube.googleapis.com/youtube/v3/playlists?part=snippet%2CcontentDetails&maxResults=25";
-let playlistItemApi = "https://youtube.googleapis.com/youtube/v3/playlistItems?part=snippet%2CcontentDetails&maxResults=25";
+let playlistApi = "https://youtube.googleapis.com/youtube/v3/playlists?part=snippet%2CcontentDetails&maxResults=50";
+let playlistItemApi = "https://youtube.googleapis.com/youtube/v3/playlistItems?part=snippet%2CcontentDetails&maxResults=50";
 let playListUrl = playlistApi + "&mine=true" + ApiKey;
 let playlistCount = 0;
 let playlistItemCount = 0;
@@ -186,6 +186,7 @@ let smallVideoPlayback = document.getElementById("smallVideoPlayback");
 let channelPageContainer = document.getElementById("channelPageContainer");
 let opid = false;
 let playlistIdsPlaylistId = "";
+
 
 // Fetching and show user's Playlists
 
@@ -478,7 +479,7 @@ function getPlaylistItemData(returnedData1){
 
     if(element.snippet.title === "Private video")
       continue;
-      
+    
     let videoTitle = element.snippet.title;
     let channelTitle = element.snippet.channelTitle;
     let thumbnail = element.snippet.thumbnails.medium.url;
@@ -504,7 +505,6 @@ function getPlaylistItemData(returnedData1){
 }
 
 // Fectcing and Showing ChannelPlaylists
-
 async function getChannelPlaylists(URL, channelId)
 {
   playlistCount = 0;
@@ -532,6 +532,7 @@ let channelPageOuterContainer = document.getElementById("outerContainerChannelPa
 let channelPlaylistContainerDiv = document.getElementById("channelPlaylistContainer"); 
 let tempPlaylistContainerDiv = channelPlaylistContainerDiv.cloneNode(true);
 let orgChannelPlaylistDiv = document.getElementById("channelPlaylistDiv"); 
+
 
 function ShowChannelPlayList(returnedData)
 {
@@ -646,7 +647,6 @@ async function ShowChannelPage(URL)
       elements[0].parentNode.removeChild(elements[0]);
   }
 
-  
   smallVideoPlayback.style.display = 'none';
   smallVideoPlayback.childNodes[1].childNodes[1].setAttribute('src', "");
   channelPageContainer.style.display = 'block';
