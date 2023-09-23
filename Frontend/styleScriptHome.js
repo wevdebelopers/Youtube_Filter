@@ -9,6 +9,24 @@ var setPreviewVideoHeight = () => {
 window.addEventListener('resize', setPreviewVideoHeight);
 window.addEventListener('DOMContentLoaded', setPreviewVideoHeight);
 
+var setSubsciptionsTitleWidth = () => {
+    const root = document.querySelector(':root');
+    const subWindow = document.querySelector('.sidebar__subInfo_container');
+
+    root.style.setProperty('--subsrciptions-width', `${subWindow.clientWidth}px`);
+}
+window.addEventListener('resize', setSubsciptionsTitleWidth);
+window.addEventListener('DOMContentLoaded', setSubsciptionsTitleWidth);
+
+var setLeftsidebarMarginTop = () => {
+    const root = document.querySelector(':root');
+    const subWindow = document.querySelector('.sidebar__sub_title');
+
+    root.style.setProperty('--distFromSubInfoTitle', `${subWindow.clientHeight+5}px`);
+}
+window.addEventListener('resize', setLeftsidebarMarginTop);
+window.addEventListener('DOMContentLoaded', setLeftsidebarMarginTop);
+
 
 var setChannelPagePlaylistHeight = () => {
     const videoContainer = document.querySelector('.front_thumbnail_container');

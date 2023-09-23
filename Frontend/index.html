@@ -5,6 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DotGothic16&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@500&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <title>Youtube Filtered</title>
@@ -13,21 +16,22 @@
 <body>
     <!--HEADER HERE-->
     <div class="headerContainer">
-        <div class="header__logo_container">
+        <!-- <div class="header__logo_container">
             <img src="./Images/yt.png" class="header__logo">
-        </div>
-        <div class="header__searchbar_container">
+        </div> -->
+        <!-- <div class="header__searchbar_container">
             <input type="text" class="header__searchbar" placeholder="Search"/>
             <button class="header__searchbar_btn">
                 <i class="fa-solid fa-magnifying-glass header__search_icon"></i>
             </button>
-        </div>
+        </div> -->
         <div class="header__account_container">
-            <div class="header__account_notification">
-                <i class="fa-solid fa-bell header__account_notification_icon"></i>
+            <div class="header__account_name">
+                <!-- <i class="fa-solid fa-bell header__account_notification_icon"></i> -->
+                Channel Name HERE
             </div>
             <div class="header__account_photo">
-                <img src = "Images/profile.png" id = "image"/>
+                <img src = "Images/profile.png" id = "image" style="width: 100%; height: 100%; border-radius: 100px;"/>
                 <div class="header__logout_container">
                     Logout
                 </div>
@@ -38,8 +42,16 @@
 
 
     <!--SIDEBAR HERE-->
+    <div class="sidebar__sub_title">
+        <div class="sidebar__logo_container">
+            YOUTUBE FILTERED.
+        </div>
+        <div class="sidebar__sub_title_1">
+            Subscriptions
+        </div>
+    </div>
     <div class="sidebar__container">
-        <div class="sidebar__general_container">
+        <!-- <div class="sidebar__general_container">
             <div class="sidebar__home">
                 <i class="fa-solid fa-house sidebar__home_icon"></i>
                 <div class="sidebar__home_text">Home</div>
@@ -56,12 +68,13 @@
                 <i class="fa-solid fa-images sidebar__library_icon"></i>
                 <div class="sidebar__library_text">Library</div>
             </div>
-        </div>
+        </div> -->
+        
         <div class="sidebar__subInfo_container" id = "channelContainer">
-            <div class="sidebar__sub_title">Subscriptions</div>
+            
             <div class="sidebar__subInfo_card">
                 <div class="sidebar__subInfo_photo_container">
-                    <img src = "Images/profile.png" style="width: 80%; height: 2.5em; padding-left: 10px;" id = "chi1" alt = "Images/profile.png">
+                    <img src = "Images/profile.png" style="width: 100%; height: 100%; border-radius: 100px;" id = "chi1" alt = "Images/profile.png">
                 </div>
                 <div class="sidebar__subInfo_channelName">
                 </div>
