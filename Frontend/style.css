@@ -36,12 +36,16 @@ body{
     z-index:10;
 
     position: fixed;
-    width: 100%;
+    right:0;
+    width: 25em;
+    /* width: 100%; */
     box-sizing: border-box;
-    justify-content: space-between;
+    /* justify-content: space-between; */
+    justify-content: end;
     align-items: center;
 
-    padding: 0.7em 2.5em 0.7em 2.5em;
+    /* padding: 0.7em 2.5em 0.7em 2.5em; */
+    padding: 0.7em 2em 0.7em 2em;
 }
 
 .header__logo_container{
@@ -123,21 +127,36 @@ body{
     display: flex;
     justify-content: space-between;
     align-items: center;
-    min-width: 6em;
+    column-gap: 1.5em;
+    /* min-width: 10em; */
 }
 
-.header__account_notification_icon{
+.header__account_name{
+    width: 16em;
+    /* text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden; */
+    display: flex;
+    justify-content: end;
+    align-items: center;
+    height: 2.6em;
+    overflow: hidden;
+    font-weight: bold;
+    font-size:1.2em;
+}
+
+/* .header__account_notification_icon{
     font-size: 1.2em;
     padding: 0.56em;
     border-radius: 30px;
     transition: all 0.13s;
-}
+} */
 
-.header__account_notification{
+/* .header__account_name{
     position: relative;
 }
 
-.header__account_notification::after{
+.header__account_name::after{
     content: 'Notifications';
     position: absolute;
     left:-50%;
@@ -153,26 +172,35 @@ body{
     pointer-events: none;
 }
 
-.header__account_notification:hover::after{
+.header__account_name:hover::after{
     opacity: 100%;
 }
 
 .header__account_notification_icon:hover{
     background-color: hsl(0, 0%, 18.82%);
     cursor: pointer;
-}
+} */
 
 .header__account_photo img{
     width: 100%;
     height: 2.5em;
+
+    border:3px solid #0f0f0f;
+    transition: all 0.17s;
 }
 
 .header__account_photo{
     position: relative;
+
+    height: 2.5em;
+    width: 2.5em;
+    border-radius: 100px;
 }
 
 .header__account_photo img:hover{
     cursor: pointer;
+
+    border: 3px solid white;
 }
 
 .header__logout_container{
@@ -211,12 +239,19 @@ body{
 
 /* Sidebar CSS start */
 
+:root{
+    --subsrciptions-width:100%;
+    --distFromSubInfoTitle:10em;
+}
+
 .sidebar__container{
-    padding-top: 4em;
+    /* padding-top: 4em; */
     position: fixed;
     min-width:15%;
-    height: 92vh;
+    /* max-width: 15%; */
+    height: 100vh;
     overflow-y:scroll;
+    margin-top: var(--distFromSubInfoTitle);
 }
 
 .sidebar__container::-webkit-scrollbar-thumb{
@@ -269,26 +304,69 @@ body{
 .sidebar__subInfo_container{
     background-color:#0f0f0f;
     display: grid;
-    min-height: 50vh;
+    /* min-height: 50vh; */
     color:white;
     padding: 0em 0em 1em 0em;
-    border-bottom: 1px solid rgb(192, 187, 187);
+    /* row-gap: 0.5em; */
+    /* height: 91vh; */
+    /* border-bottom: 1px solid rgb(192, 187, 187); */
 }
 
 .sidebar__sub_title{
-    display: flex;
+    display: grid;
+    /* row-gap: 3em; */
     align-items: center;
-    padding-left: 2.2em;
-    padding-top: 1.3em;
-    padding-bottom: 0.8em;
+    /* padding-left: 2.2em; */
+    /* padding-top: 1em;
+    padding-bottom: 1em; */
+    /* height: 2em; */
+    color:white;
+
+    position: fixed;
+    width: var(--subsrciptions-width);
+
+    border-bottom: 1px solid rgb(192, 187, 187);
+}
+
+.sidebar__logo_container{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    padding: 1.2em 0em 1.2em 0.3em;
+    font-family: 'DotGothic16', sans-serif;
+    font-size: 1.5em;
+    color:rgb(255, 72, 72);    
+    /* border: 3px solid white; */
+}
+
+.sidebar__logo_container:hover{
+    cursor: pointer;
+}
+
+.sidebar__sub_title_1{
+    width: 100%;
+    /* padding-top: 1em; */
+    height:3em;
+    border-top: 1px solid rgb(192, 187, 187);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size:1.2em;
+    font-weight: bold;
 }
 
 .sidebar__subInfo_card{
     display: flex;
     align-items: center;
     border-radius: 15px;
-    padding-top:0.7em;
-    padding-bottom: 0.7em;
+    padding-top:0.5em;
+    padding-bottom: 0.5em;
+    /* height: 2.5em; */
+}
+
+.sidebar__subInfo_photo_container{
+    padding-left: 0.5em;
+    height: 3em;
 }
 
 .sidebar__subInfo_card:hover{
@@ -309,7 +387,7 @@ body{
     padding-left: 1em;
     font-size: 0.9em;
 
-    width:8em;
+    width:10em;
     /*ellipsis doesnt work if display is set to flex*/
     text-overflow: ellipsis;
     white-space: nowrap;
@@ -341,12 +419,20 @@ body{
 
 .sidebar__footer_container{
     display: flex;
-    justify-content: left;
-    align-items: center;
-    padding: 1em 1.5em 1em 2.3em;
+    justify-content: start;
+    align-items: end;
+    padding: 0.6em 1.5em 0.6em 2.3em;
     font-size: 0.8em;
     color: hsl(0, 7%, 76%);
     background-color: #0f0f0f;
+    /* height: 4vh; */
+    bottom: 0;
+    width: 100vw;
+    position: fixed;
+
+    /* background-color: palegoldenrod; */
+
+    border-top: 1px solid rgb(192, 187, 187);
 }
 
 /* embedded link */
@@ -416,16 +502,12 @@ body{
     overflow-y:scroll;
 
     display: grid;
+    grid-template-rows: 5.7em 5.7em;
     /* row-gap: 0.5em; */
     border-radius: 0px 0px 10px 10px;
     border-left: 2px solid hsl(0, 0%, 18.82%);
     border-right: 2px solid hsl(0, 0%, 18.82%);
     border-bottom: 2px solid hsl(0, 0%, 18.82%);
-}
-
-.right__video_preview_container:hover:nth-child(n){
-    cursor: pointer;
-    background-color: hsl(0, 1%, 15%);
 }
 
 .right__video_number{
@@ -445,7 +527,7 @@ body{
 }
 
 .right__video_title{
-    /* display: flex; */
+    display: flex;
     align-items: start;
     padding-top: 0.3em;
     font-size:0.9em;
@@ -499,11 +581,15 @@ body{
 
 .right__video_preview_container{
     display: grid;
-    height: 4em;
+    height: 5em;
     grid-template-columns: 0.1fr 2.3fr 5fr;
     padding: 0.3em 0em 0.2em 0em;
 }
 
+.right__video_preview_container:hover:nth-child(n){
+    cursor: pointer;
+    background-color: hsl(0, 1%, 15%);
+}
 
 .rightsidebar__other_playlist_container{
     padding: 0.5em 1em 1em 1em;
@@ -665,6 +751,8 @@ body{
     top:4.15em;
     position: relative;
     left: var(--leftSpacing);
+
+    background-color: #0f0f0f;
 }
 
 .main__video_playback{  
@@ -687,7 +775,8 @@ body{
 /* channel page start */
 
 .channel_page_container{
-    top:4em;
+    /* top:4em; */
+    top:0.5em;
     /* height: 10em; */
     height: 87vh;
     padding: 0.5em 0em 1.5em 0em;
@@ -711,15 +800,21 @@ body{
     padding: 0.3em;
     margin-right: 1em;
     /* width: 12.5%; */
-    height: 6em;
+    /* height: 6em; */
 }
+
+.channel_main_image{
+    height: 6em;
+    border-radius: 10px;
+}
+
 .channel_info_container h1{
     align-self: center;
 }
 .channel_video_container{
     display: grid;
     /* padding: 0.4em; */
-    min-height: 73vh;
+    min-height: 80vh;
     background-color: #0f0f0f;
 }
 /* .channel_playlist_container{
